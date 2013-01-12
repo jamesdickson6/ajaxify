@@ -66,9 +66,12 @@ Your web application will need to support **format=ajax** and render responses w
 You can easily customize the format parameter value:
 
 ```js
+# change default
 Ajaxify.format="div"
+# use something other than default
+$(document).ajaxify(".ajaxLink", {format : 'div'})
 ```
-
+Or for a single link:
 ```html
 <a ... format="div" ...></a>
 ```
