@@ -11,7 +11,7 @@ var Ajaxify = {
   isPushing : false, // back button support
 
   //set to true to print encountered errors
-  debug : true,
+  debug : false,
   logMessage : function(msg) {
     if (this.debug) {
       if (false && window.console && window.console.log) window.console.log(msg)
