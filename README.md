@@ -22,9 +22,9 @@ Consider using PJAX instead, which is more robust and has caching and other good
 * [jQuery &#8805; 1.7.2](http://jquery.com/)
 
 ## Usage
-Include the library
+Include *jquery.ajaxify.js* in your application's *<head>*
 ```html
-<od:javascript src="jquery/jquery.ajaxify-1.0.min"/>
+<script type="text/javascript" src="/js/jquery.ajaxify-1.0.min.js"></script>
 ```
 
 Ajaxify all the links with class="ajaxLink"
@@ -32,16 +32,18 @@ Ajaxify all the links with class="ajaxLink"
 $(document).ajaxify(".ajaxLink", {update:"#primary-content"})
 ```
 
-Render your links with html attributes
+Options for link handling come from the link itself!  It's html attributes, so render your links like this:
 ```html
 <a class="ajaxLink" href="/mypage" update="#mycontainer" jsbefore="someFunction();" format="ajax">My Page</a>
 ```
+I've also written a grails TagLib to do just this..
 
-I've also written a grails TagLib to just this..
+Options specified on a link will take presedence over those passed to **.ajaxify()**
+
 
 ## Link Handling
 The default behavior of **Ajaxify.defaultHandler** might be all you ever need.  
-It supports lots of parameters.  Check out the code to see what options (html attributes) might be useful to you.
+It supports lots of options.  Check out the code to see what options (html attributes) might be useful to you.
 
 You can write your own javascript handler function and then use that instead. Like this:
 ```js
