@@ -1,18 +1,21 @@
 ## Ajaxify
 
-This does something similar to [PJAX](See https://github.com/defunkt/jquery-pjax)
-Consider using PJAX instead, which is more robust and has caching and other goodness.
-
 This library makes the browser back/next navgiation work with an application that uses AJAX to load page content.
 As well as make the browser address bar a usable representation of the current page.
-For that reason,  Link URLs (href) should be valid without **format=ajax**.  
-This makes the site nicely and easily degenerate to plain old HTML.
+For that reason,  your link URLs (href) should work without *format=ajax*. 
+This makes the site nicely and easily degrade to plain old HTML.
 
 This leverages browser support for html5's pushState.
 
 See [CanIUse](http://caniuse.com/#feat=history) for current browser support.
 
 Without browser support, the only consequence should be that the Back button won't reload content via ajax.
+
+## PJAX
+
+Ajaxify does something similar to [PJAX](See https://github.com/defunkt/jquery-pjax).
+
+Consider using PJAX instead, which is more robust and has caching and other goodness.
 
 
 ## Dependencies
