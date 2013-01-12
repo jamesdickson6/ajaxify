@@ -22,6 +22,7 @@ Without browser support, the only consequence should be that the Back button won
 Include the library
 ```html
 <od:javascript src="jquery/jquery.ajaxify-1.0.min"/>
+```
 
 Ajaxify all the links with class="ajaxLink"
 ```js
@@ -44,6 +45,7 @@ You can write your own javascript handler function and then use that instead. Li
 function myCoolHandler(state) { ... }
 $(document).ajaxify(".ajaxCool", {handle: myCoolHandler})
 ```
+
 Or customize a specific link:
 ```html
 <a class="ajaxLink" handle="myCoolHandler">My Page</a>
