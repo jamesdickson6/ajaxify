@@ -10,14 +10,9 @@ This makes the site nicely and easily degenerate to plain old HTML.
 
 This leverages browser support for html5's pushState.
 
-BROWSER SUPPORT
-Feature           │ Chrome  │ Firefox (Gecko)  │  IE  │ Opera  │ Safari
-──────────────────┼─────────┼──────────────────┼──────┼────────┼───────
-replace/pushState │   5     │    4.0 (2.0)     │  10  │ 11.50  │  5.0
-history.state     │  18     │    4.0 (2.0)     │  10  │ 11.50  │  ---
+See [CanIUse](http://caniuse.com/#feat=history) for current browser support.
 
 Without browser support, the only consequence should be that the Back button won't reload content via ajax.
-
 
 
 ## Dependencies
