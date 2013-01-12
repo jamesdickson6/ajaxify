@@ -27,25 +27,27 @@ Include *jquery.ajaxify.js* in your application's *<head>*
 <script type="text/javascript" src="/js/jquery.ajaxify-1.0.min.js"></script>
 ```
 
-Ajaxify all the links with class="ajaxLink"
+Make all elements with *class="ajaxLink"* load the *#mycontainer* element with the result of their *href?format=ajax*
 ```js
 $(document).ajaxify(".ajaxLink", {update:"#mycontainer"})
 ```
 
-Options for link handling come from the link itself!  It's html attributes, so render your links like this:
+Options for link handling come from the link itself!  (it's html attributes).
+
+So render your links like this:
 ```html
 <a class="ajaxLink" href="/mypage" update="#mycontainer" jsbefore="someFunction();" format="ajax">My Page</a>
 ```
-I've also written a grails TagLib to do just this..
 
 Options specified on a link will take presedence over those passed to **.ajaxify()**
 
+I've also written a tiny Grails TagLib for easy link rendering...
 
 ## Link Handling
 The default behavior of **Ajaxify.defaultHandler** might be all you ever need.  
-It supports lots of options.  Check out the code to see what options (html attributes) might be useful to you.
+It supports lots of options.  Check out the [code](ajaxify/tree/master/jquery.ajaxify.js) to see what options (html attributes) might be useful to you.
 
-You can write your own javascript handler function and then use that instead. Like this:
+You could write your own javascript handler function and use that instead. Like this:
 ```js
 function myCoolHandler(state) { ... }
 $(document).ajaxify(".ajaxCool", {handle: myCoolHandler})
@@ -60,6 +62,15 @@ NOTE: You don't have to use anchor tags, you can ajaxify any type of element.
 
 ## Rendering
 Your web application will need to support **format=ajax** and render responses without their page layout.  
-You can, of course, customize the format parameter value
+
+You can easily customize the format parameter value:
+
+```js
+Ajaxify.format="div"
+```
+
+```html
+<a ... format="div" ...></a>
+```
 
 
