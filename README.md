@@ -29,7 +29,7 @@ Include *jquery.ajaxify.js* in your application's *<head>*
 
 Ajaxify all the links with class="ajaxLink"
 ```js
-$(document).ajaxify(".ajaxLink", {update:"#primary-content"})
+$(document).ajaxify(".ajaxLink", {update:"#mycontainer"})
 ```
 
 Options for link handling come from the link itself!  It's html attributes, so render your links like this:
