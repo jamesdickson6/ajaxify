@@ -7,7 +7,6 @@ var Ajaxify = {
 
   defaultRequestFormat : 'ajax',
   isInitialized : false,
-  isHandling : false, // handling link actions?
   isPushing : false, // back button support
 
   //set to true to print encountered errors
@@ -25,37 +24,39 @@ var Ajaxify = {
     try {
       if (window.history && window.history.pushState) {
 	
-	// Make the back button work for ajax links
-	// Used to detect initial (useless) popstate.
-	// If history.state exists, assume browser isn't going to fire initial popstate.
-	var isPopped = (window.history.state && window.history.state.href)
-	var initialURL = location.href
+      	// Make the back button work for ajax links
+      	// Used to detect initial (useless) popstate.
+      	// If history.state exists, assume browser isn't going to fire initial popstate.
+      	var isPopped = (window.history.state && window.history.state.href)
+      	var initialURL = location.href
 
-	// popstate handler takes care of the back and forward buttons
-	$(window).bind('popstate', function(event){
-	  // Ignore inital popstate that some browsers fire on page load
-	  var initialPop = !isPopped && location.href == initialURL
-	  isPopped = true
-	  if (initialPop) return
-	  
-	  //try to handle our ajax state, or else use default browser behavior
-	  var state = history.state || event.state
-	  if (state) {
-	    Ajaxify.handle(state)
-	  }
-	  else {
-	    //this makes the back button work, albeit not via ajax, do what the browser would have done..
-	    window.location = location.href
-	  }
-	})
-
-	Ajaxify.isPushing = true
+      	// popstate handler takes care of the back and forward buttons
+      	$(window).bind('popstate', function(event){
+          var state = history.state || event.state
+      	  // Ignore inital popstate that some browsers fire on page load
+      	  var initialPop = !isPopped && location.href == initialURL
+      	  isPopped = true
+      	  Ajaxify.isPopped = true      	  
+      	  if (initialPop) { 
+            return
+          }
+          if (state && state.href == location.href) { //already on this page (Fixes Chrome refresh popstate)
+            return
+          }
+      	  //try to handle our ajax state, or else use default browser behavior
+      	  if (state) {
+      	    Ajaxify.handle(state)
+      	  }
+      	  else {
+      	    //this makes the back button work, albeit not via ajax, do what the browser would have done..
+      	    window.location = location.href
+      	  }
+      	})
+      	Ajaxify.isPushing = true
       } //end if pushState supported
-
     } catch(e) {
       Ajaxify.logMessage("error during ajaxify initialization: " + e)
     }
-    Ajaxify.isHandling = true //not used right now
     Ajaxify.isInitialized = true
   },
 
@@ -80,17 +81,17 @@ var Ajaxify = {
       
       // Middle click, cmd click, and ctrl click should use browser default behavior
       if ( event.which > 1 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey )
-	return
+        return
 	
       if (!doAjaxify)
-	return
+        return
 
       if (Ajaxify.isPushing) {
-	opts.push = opts.push || 'push'
-	if (opts.replace) push = 'replace'
-	if (opts.push=='push' || opts.push=='yes') history.pushState(opts, '', this.href)
-	else if (opts.push=='replace') history.replaceState(opts, '', this.href)
-	// any other value of push means don't push it
+      	opts.push = opts.push || 'push'
+      	if (opts.replace) push = 'replace'
+      	if (opts.push=='push' || opts.push=='yes') history.pushState(opts, '', this.href)
+      	else if (opts.push=='replace') history.replaceState(opts, '', this.href)
+      	// any other value of push means don't push it
       }
 
       Ajaxify.handle(opts) // handle this link
@@ -105,13 +106,13 @@ var Ajaxify = {
   extractElementAttributes : function(elm) {
     try {
       if (typeof(elm) == "string") {
-	if (elm[0] == "#") elm = elm.substring(1,elm.length) //strip leading #
-	elm = document.getElementById(elm)
+        if (elm[0] == "#") elm = elm.substring(1,elm.length) //strip leading #
+        elm = document.getElementById(elm)
       } // else assume it's a DOM Element
       var s = {}
       var attrs = elm.attributes
       for (var i = 0; i < attrs.length; i++) {
-	s[attrs[i].nodeName] = attrs[i].nodeValue
+        s[attrs[i].nodeName] = attrs[i].nodeValue
       }
       return s
     } catch(e) {
